@@ -1,0 +1,11 @@
+{% extends "Client/base.html" %}
+
+{% block title %}Trang chủ - Thiết bị điện tử{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+  <h1 class="display-4">Chào mừng đến với hệ thống Thiết bị điện tử</h1>
+  <p class="lead">Xem sản phẩm mới nhất, quản lý đơn hàng và trải nghiệm tiện ích hiện đại.</p>
+  <a class="btn btn-primary btn-lg" href="{{ url_for('sanpham') }}">Khám phá sản phẩm</a>
+</div>
+{% endblock %}

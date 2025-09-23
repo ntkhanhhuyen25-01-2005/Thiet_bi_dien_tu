@@ -1,74 +1,40 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Thiết bị điện tử{% endblock %}</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Admin - Thiết bị điện tử{% endblock %}</title>
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <!-- Custom CSS -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
-    />
-    <!-- Font Awesome CDN -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-/>
-
-  </head>
-  <body>
-    <!-- ================= TOP: Navbar ================= -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand font-weight-bold" href="{{ url_for('index') }}">
-          🖥️ Thiết bị điện tử
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url_for('index') }}">Trang chủ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url_for('sanpham') }}">Sản phẩm</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url_for('danhmuc') }}">Danh mục</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url_for('donhang') }}">Đơn hàng</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url_for('dangnhap') }}">Đăng nhập</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url_for('dangky') }}">Đăng ký</a>
-            </li>
-          </ul>
-        </div>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+  <!-- ================= TOP: Navbar Admin ================= -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand font-weight-bold" href="{{ url_for('admin_index') }}">
+        <i class="fa-solid fa-gear"></i> Admin Panel
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_sanpham') }}"><i class="fa-solid fa-box"></i> Quản lý sản phẩm</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_donhang') }}"><i class="fa-solid fa-receipt"></i> Quản lý đơn hàng</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_nguoidung') }}"><i class="fa-solid fa-users"></i> Quản lý người dùng</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_thongke') }}"><i class="fa-solid fa-chart-line"></i> Thống kê</a></li>
+        </ul>
       </div>
-    </nav>
-
-    <!-- ================= CONTENT ================= -->
-    <div class="container mt-4">
-      {% block content %}
-      <!-- Nội dung trang con sẽ thay thế ở đây -->
-      {% endblock %}
     </div>
+  </nav>
 
+  <!-- ================= CONTENT ================= -->
+  <div class="container mt-4">
+    {% block content %}{% endblock %}
+  </div>
+     
     <!-- ================= BOTTOM: Footer ================= -->
     <footer class="bg-dark text-light text-center py-3 mt-5">
       <div class="container">
@@ -148,3 +114,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+

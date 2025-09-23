@@ -2,40 +2,66 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# Trang chủ
+# ================== ROUTES CHO CLIENT ==================
+
 @app.route('/')
 def index():
-    return render_template('Trangchu.html')
+    return render_template('Client/Trangchu.html')
 
-# Đăng nhập
 @app.route('/dangnhap')
 def dangnhap():
-    return render_template('Dangnhap.html')
+    return render_template('Client/Dangnhap.html')
 
-# Đăng ký
 @app.route('/dangky')
 def dangky():
-    return render_template('Dangky.html')
+    return render_template('Client/Dangky.html')
 
-# Danh mục
 @app.route('/danhmuc')
 def danhmuc():
-    return render_template('Danhmuc.html')
+    return render_template('Client/Danhmuc.html')
 
-# Đơn hàng
-@app.route('/donhang')
-def donhang():
-    return render_template('Donhang.html')
-
-# Hồ sơ
-@app.route('/profile')
-def profile():
-    return render_template('profile.html')
-
-# Sản phẩm
 @app.route('/sanpham')
 def sanpham():
-    return render_template('Sanpham.html')
+    return render_template('Client/Sanpham.html')
 
+@app.route('/giohang')
+def giohang():
+    return render_template('Client/Giohang.html')
+
+@app.route('/thanhtoan')
+def thanhtoan():
+    return render_template('Client/Thanhtoan.html')
+
+@app.route('/donhang')
+def donhang():
+    return render_template('Client/Donhang.html')
+
+@app.route('/profile')
+def profile():
+    return render_template('Client/profile.html')
+
+# ================== ROUTES CHO ADMIN ==================
+
+@app.route('/admin')
+def admin_index():
+    return render_template('admin/Trangchu.html')
+
+@app.route('/admin/sanpham')
+def admin_sanpham():
+    return render_template('admin/sanpham.html')
+
+@app.route('/admin/donhang')
+def admin_donhang():
+    return render_template('admin/donhang.html')
+
+@app.route('/admin/nguoidung')
+def admin_nguoidung():
+    return render_template('admin/nguoidung.html')
+
+@app.route('/admin/thongke')
+def admin_thongke():
+    return render_template('admin/thongke.html')
+
+# ================== MAIN ==================
 if __name__ == '__main__':
     app.run(debug=True)
