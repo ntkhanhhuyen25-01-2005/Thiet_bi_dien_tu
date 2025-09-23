@@ -13,9 +13,9 @@ def dangnhap():
     return render_template('Dangnhap.html')
 
 # Đăng ký
-@app.route('/dangki')
-def dangki():
-    return render_template('Dangki.html')
+@app.route('/dangky')
+def dangky():
+    return render_template('Dangky.html')
 
 # Danh mục
 @app.route('/danhmuc')
