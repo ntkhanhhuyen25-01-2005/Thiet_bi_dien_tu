@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Thiết bị điện tử{% endblock %}</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <!-- TOP: Navbar -->
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Trang chủ</a>
+      <a class="nav-link text-light" href="{{ url_for('sanpham') }}">Sản phẩm</a>
+      <a class="nav-link text-light" href="{{ url_for('dangnhap') }}">Đăng nhập</a>
+    </div>
+  </nav>
+
+  <!-- CONTENT: thay đổi theo từng trang -->
+  <div class="container mt-4">
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- BOTTOM: Footer -->
+  <footer class="bg-dark text-light text-center py-3 mt-5">
+    <p>&copy; 2024 Thiết bị điện tử</p>
+  </footer>
+</body>
+</html>
