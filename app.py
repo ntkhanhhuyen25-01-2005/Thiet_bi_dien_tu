@@ -1,29 +1,41 @@
-# from flask import Flask, render_template, flash
-
-# app = Flask(__name__)
-# app.secret_key = "mysecret" 
-
-# @app.route("/")
-# def home():
-#     return render_template("Trangchu.html", title="Trang chủ")
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
 from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return render_template("Trangchu.html")
+# Trang chủ
+@app.route('/')
+def index():
+    return render_template('Trangchu.html')
 
-@app.route("/sanpham")
-def sanpham():
-    return render_template("Sanpham.html")
-
-@app.route("/dangnhap")
+# Đăng nhập
+@app.route('/dangnhap')
 def dangnhap():
-    return render_template("Dangnhap.html")
+    return render_template('Dangnhap.html')
 
-if __name__ == "__main__":
+# Đăng ký
+@app.route('/dangki')
+def dangki():
+    return render_template('Dangki.html')
+
+# Danh mục
+@app.route('/danhmuc')
+def danhmuc():
+    return render_template('Danhmuc.html')
+
+# Đơn hàng
+@app.route('/donhang')
+def donhang():
+    return render_template('Donhang.html')
+
+# Hồ sơ
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+# Sản phẩm
+@app.route('/sanpham')
+def sanpham():
+    return render_template('Sanpham.html')
+
+if __name__ == '__main__':
     app.run(debug=True)

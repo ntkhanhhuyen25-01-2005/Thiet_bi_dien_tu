@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Thiết bị điện tử{% endblock %}</title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -17,28 +17,128 @@
     />
   </head>
   <body>
-    <!-- TOP: Navbar -->
-    <nav class="navbar navbar-dark bg-primary">
+    <!-- ================= TOP: Navbar ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <a class="navbar-brand" href="{{ url_for('home') }}">Trang chủ</a>
-        <a class="nav-link text-light" href="{{ url_for('sanpham') }}"
-          >Sản phẩm</a
+        <a class="navbar-brand font-weight-bold" href="{{ url_for('index') }}">
+          🖥️ Thiết bị điện tử
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
         >
-        <a class="nav-link text-light" href="{{ url_for('dangnhap') }}"
-          >Đăng nhập</a
-        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('index') }}">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('sanpham') }}">Sản phẩm</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('danhmuc') }}">Danh mục</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('donhang') }}">Đơn hàng</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('dangnhap') }}">Đăng nhập</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('dangki') }}">Đăng ký</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
-    <!-- CONTENT: thay đổi theo từng trang -->
+    <!-- ================= CONTENT ================= -->
     <div class="container mt-4">
-      {% block content %} {% Nội dung của từng trang sẽ thay đổi tại đây %} {%
-      endblock %}
+      {% block content %}
+      <!-- Nội dung trang con sẽ thay thế ở đây -->
+      {% endblock %}
     </div>
 
-    <!-- BOTTOM: Footer -->
+    <!-- ================= BOTTOM: Footer ================= -->
     <footer class="bg-dark text-light text-center py-3 mt-5">
-      <p>&copy; 2024 Thiết bị điện tử</p>
+      <div class="container">
+       
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold">
+                            Thiết bị điện tử</h6>
+                        <hr class=" mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" /><br>
+                        <div class="text-center mb-2">
+                          <i class="fa-solid fa-computer fa 3x"></i>
+                        </div>
+                        <p>
+                            Here you can use rows and columns to organize your footer
+                            content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit.
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold">Sản phẩm</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <p>
+                            <a href="#!" class="text-white">Trang chủ</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white">Về chúng tôi</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white">Sản phẩm</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white">Liên hệ</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold">Quan tâm</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <p>
+                            <a href="#!" class="text-white">Facebook</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white">Instagram</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white">Tripavisor</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-white">Twitter</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <h6 class="text-uppercase fw-bold">Liên hệ</h6>
+                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        <p><i class="fas fa-home mr-3"></i>01 Xuân Hải, Hải Châu, Đà Nẵng</p>
+                        <p><i class="fas fa-envelope mr-3"></i> ney@gmai.com</p>
+                        <p><i class="fas fa-phone mr-3"></i> + 0905523543</p>
+                        <p><i class="fas fa-print mr-3"></i> + 0376659652</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2025 Copyright:
+            <a class="text-white" href="/">Ney Team</a>
+        </div>
+      </div>
     </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
