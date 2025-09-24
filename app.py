@@ -36,10 +36,15 @@ def thanhtoan():
 def donhang():
     return render_template('Client/Donhang.html')
 
-@app.route('/profile')
+@app.route("/profile")
 def profile():
-    return render_template('Client/profile.html')
-
+    user = {
+        "email": "abc@gmail.com",
+        "first_name": "ABC",
+        "last_name": " ",
+        "username": "abc123"
+    }
+    return render_template("Client/profile.html", user=user)
 # ================== ROUTES CHO ADMIN ==================
 
 @app.route('/admin')

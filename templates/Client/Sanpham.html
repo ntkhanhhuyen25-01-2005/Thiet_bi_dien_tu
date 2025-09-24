@@ -1,12 +1,215 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sản phẩm - Thiết bị điện tử</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+      }
 
-{% block title %}Sản phẩm{% endblock %}
+      /* Navbar */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #007bff;
+        padding: 12px 40px;
+      }
+      .navbar .logo {
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .navbar .menu {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+      .navbar .menu li a {
+        text-decoration: none;
+        color: #d1e7ff;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+      .navbar .menu li a:hover {
+        color: #fff;
+      }
+      .navbar .menu li i {
+        margin-right: 6px;
+      }
 
-{% block content %}
-  <h2>Danh sách sản phẩm</h2>
-  <ul>
-    <li>Laptop</li>
-    <li>Điện thoại</li>
-    <li>Phụ kiện</li>
-  </ul>
-{% endblock %}
+      /* Page header */
+      .page-header {
+        text-align: center;
+        padding: 30px 0;
+        background: #e9f2ff;
+      }
+      .page-header h1 {
+        font-size: 28px;
+        color: #333;
+      }
+
+      /* Product grid */
+      .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 40px;
+      }
+      .product-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 15px;
+        transition: transform 0.2s;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+      .product-card img {
+        max-width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .product-card h3 {
+        font-size: 18px;
+        margin: 10px 0;
+        color: #333;
+      }
+      .product-card p {
+        color: #007bff;
+        font-weight: bold;
+        margin: 8px 0;
+      }
+      .product-card button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .product-card button:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fa-solid fa-microchip"></i>
+        <span>Thiết bị điện tử</span>
+      </div>
+      <ul class="menu">
+        <li>
+          <a href="{{ url_for('index') }}"
+            ><i class="fa-solid fa-house"></i> Trang chủ</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('sanpham') }}"
+            ><i class="fa-solid fa-cart-shopping"></i> Sản phẩm</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('giohang') }}"
+            ><i class="fa-solid fa-lock"></i> Giỏ hàng</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('donhang') }}"
+            ><i class="fa-solid fa-box"></i> Đơn hàng</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('profile') }}"
+            ><i class="fa-solid fa-user"></i> Tài khoản</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('dangnhap') }}"
+            ><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('dangky') }}"
+            ><i class="fa-solid fa-user-plus"></i> Đăng ký</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page header -->
+    <div class="page-header">
+      <h1>Danh sách sản phẩm</h1>
+    </div>
+
+    <!-- Product list -->
+    <div class="products">
+      <div class="product-card">
+        <img
+          src="https://laptop88.vn/media/news/0606_6251_msi_gp66_leopard_10ue_206vn-min.jpg"
+          alt="Laptop"
+        />
+        <h3>Laptop gaming MSI GP66 10UE - 206VN</h3>
+        <p>40.000.000₫</p>
+        <button>Mua ngay</button>
+      </div>
+      <div class="product-card">
+        <img
+          src="https://cdn.xtmobile.vn/vnt_upload/product/09_2025/thumbs/600_iPhone_17_Pro_cam_1_1.jpg"
+          alt="Điện thoại IPhone 17 Pro"
+        />
+        <h3>Điện thoại IPhone 17 Pro</h3>
+        <p>39.500.000₫</p>
+        <button>Mua ngay</button>
+      </div>
+      <div class="product-card">
+        <img
+          src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTgR7oRzKxxLQArNiYWhlv4GHQqb0eMrcpy5O8IH-WO6odxDoY6xGTqDNteTM3_SliO0AI73zLTnjVV_pJXOIT_Ik3ufCzSlgYpDrenkaOBE5RseUPZ7TmgsA"
+          alt="Tai nghe"
+        />
+        <h3>Tai nghe Bluetooth</h3>
+        <p>2.900.000₫</p>
+        <button>Mua ngay</button>
+      </div>
+      <div class="product-card">
+        <img
+          src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSnncyd6cCfeea2PvQslU-FgT1xii2iA_I10hh9q74Z_AoMVHoFz3oWi4A8UsD_D_eddOBhIhq6wuXhXsLtmgRvZiYLV_fO3FuQnoQPJgkfFvs-9LlAVBTY"
+          alt="Chuột"
+        />
+        <h3>Chuột Gaming</h3>
+        <p>1.490.000₫</p>
+        <button>Mua ngay</button>
+      </div>
+      <div class="product-card">
+        <img
+          src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSC_t27kV1xIUe32sxTHoLpyX6ipIMocv33o_0fgHa4dA_yOikpAKeUPoMFCvj6dE-MMRlQ49MsNG-U1hFEyPu8DwTJFvwiL6hdd7eF_anzHU4DIIH1874rTZ8"
+          alt="Bàn phím"
+        />
+        <h3>Bàn phím cơ Filco Majestouch Convertible 3</h3>
+        <p>4.700.000₫</p>
+        <button>Mua ngay</button>
+      </div>
+    </div>
+  </body>
+</html>
