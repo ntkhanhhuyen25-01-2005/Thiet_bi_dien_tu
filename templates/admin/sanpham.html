@@ -1,0 +1,95 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Quản lý sản phẩm - Admin{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Quản lý sản phẩm</h1>
+  <div>
+    <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <form class="form-inline">
+      <div class="form-group mr-2 mb-2">
+        <input type="text" class="form-control" placeholder="Tìm theo tên...">
+      </div>
+      <div class="form-group mr-2 mb-2">
+        <select class="form-control">
+          <option value="">Tất cả danh mục</option>
+          <option>Âm thanh</option>
+          <option>Phụ kiện</option>
+          <option>Lưu trữ</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-outline-secondary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Tìm</button>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>Hình</th>
+          <th>Tên sản phẩm</th>
+          <th>Danh mục</th>
+          <th>Giá</th>
+          <th>Tồn kho</th>
+          <th>Trạng thái</th>
+          <th style="width:140px">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>101</td>
+          <td><img src="https://via.placeholder.com/40" class="rounded" alt="img"></td>
+          <td>Tai nghe Bluetooth X1</td>
+          <td>Âm thanh</td>
+          <td>650.000₫</td>
+          <td>24</td>
+          <td><span class="badge badge-success">Bán</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-box-archive"></i></button>
+            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <td>102</td>
+          <td><img src="https://via.placeholder.com/40" class="rounded" alt="img"></td>
+          <td>Bàn phím cơ Pro</td>
+          <td>Phụ kiện</td>
+          <td>1.250.000₫</td>
+          <td>12</td>
+          <td><span class="badge badge-warning">Hết dần</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-box-archive"></i></button>
+            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <td>103</td>
+          <td><img src="https://via.placeholder.com/40" class="rounded" alt="img"></td>
+          <td>Ổ cứng SSD 1TB</td>
+          <td>Lưu trữ</td>
+          <td>1.990.000₫</td>
+          <td>0</td>
+          <td><span class="badge badge-secondary">Hết hàng</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-box-archive"></i></button>
+            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

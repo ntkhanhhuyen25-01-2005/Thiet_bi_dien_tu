@@ -1,0 +1,110 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Bảng điều khiển - Admin{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Bảng điều khiển</h1>
+<div class="row">
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-primary">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="card-title mb-0">Tổng sản phẩm</div>
+            <div class="display-4">128</div>
+          </div>
+          <i class="fa-solid fa-box fa-2x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-success">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="card-title mb-0">Đơn hàng hôm nay</div>
+            <div class="display-4">23</div>
+          </div>
+          <i class="fa-solid fa-receipt fa-2x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-warning">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="card-title mb-0">Khách hàng mới</div>
+            <div class="display-4">12</div>
+          </div>
+          <i class="fa-solid fa-user-plus fa-2x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-danger">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="card-title mb-0">Tồn kho thấp</div>
+            <div class="display-4">7</div>
+          </div>
+          <i class="fa-solid fa-triangle-exclamation fa-2x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Đơn hàng gần đây</span>
+        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('admin_donhang') }}">Xem tất cả</a>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th>Mã</th><th>Khách hàng</th><th>Tổng</th><th>Trạng thái</th><th>Ngày</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>#DH001</td><td>Nguyễn An</td><td>2.350.000₫</td><td><span class="badge badge-success">Hoàn tất</span></td><td>23/09/2025</td></tr>
+              <tr><td>#DH002</td><td>Trần Bình</td><td>1.200.000₫</td><td><span class="badge badge-warning">Đang xử lý</span></td><td>23/09/2025</td></tr>
+              <tr><td>#DH003</td><td>Lê Chi</td><td>750.000₫</td><td><span class="badge badge-secondary">Chờ thanh toán</span></td><td>22/09/2025</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 mb-4">
+    <div class="card">
+      <div class="card-header">Sản phẩm bán chạy</div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th>#</th><th>Tên sản phẩm</th><th>Đã bán</th><th>Tồn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Tai nghe Bluetooth X1</td><td>320</td><td>24</td></tr>
+              <tr><td>2</td><td>Bàn phím cơ Pro</td><td>245</td><td>12</td></tr>
+              <tr><td>3</td><td>Chuột gaming RGB</td><td>198</td><td>30</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
