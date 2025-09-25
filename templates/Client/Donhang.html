@@ -1,3 +1,91 @@
+{% extends "Client/base.html" %}
+
+{% block title %}Đơn hàng của tôi - Thiết bị điện tử{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h4 mb-0">Đơn hàng của tôi</h1>
+  <a href="{{ url_for('sanpham') }}" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-cart-shopping"></i> Tiếp tục mua</a>
+  
+</div>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <form class="form-inline">
+      <div class="form-group mr-2 mb-2">
+        <input type="text" class="form-control" placeholder="Tìm mã đơn / tên sản phẩm...">
+      </div>
+      <div class="form-group mr-2 mb-2">
+        <select class="form-control">
+          <option value="">Tất cả trạng thái</option>
+          <option>Chờ xác nhận</option>
+          <option>Đang xử lý</option>
+          <option>Đang giao</option>
+          <option>Hoàn tất</option>
+          <option>Đã hủy</option>
+        </select>
+      </div>
+      <div class="form-group mr-2 mb-2">
+        <input type="date" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-outline-secondary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Lọc</button>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="thead-light">
+        <tr>
+          <th>Mã</th>
+          <th>Ngày đặt</th>
+          <th>Sản phẩm</th>
+          <th>Tổng tiền</th>
+          <th>Trạng thái</th>
+          <th style="width: 160px">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#DH001</td>
+          <td>23/09/2025</td>
+          <td>3 sản phẩm</td>
+          <td>2.350.000₫</td>
+          <td><span class="badge badge-success">Hoàn tất</span></td>
+          <td>
+            <a class="btn btn-sm btn-outline-info" href="#"><i class="fa-solid fa-eye"></i> Xem</a>
+            <a class="btn btn-sm btn-outline-secondary" href="#"><i class="fa-solid fa-file-arrow-down"></i> Hóa đơn</a>
+          </td>
+        </tr>
+        <tr>
+          <td>#DH002</td>
+          <td>23/09/2025</td>
+          <td>1 sản phẩm</td>
+          <td>1.200.000₫</td>
+          <td><span class="badge badge-warning">Đang xử lý</span></td>
+          <td>
+            <a class="btn btn-sm btn-outline-info" href="#"><i class="fa-solid fa-eye"></i> Xem</a>
+            <a class="btn btn-sm btn-outline-danger" href="#"><i class="fa-solid fa-ban"></i> Hủy</a>
+          </td>
+        </tr>
+        <tr>
+          <td>#DH003</td>
+          <td>22/09/2025</td>
+          <td>2 sản phẩm</td>
+          <td>750.000₫</td>
+          <td><span class="badge badge-secondary">Chờ thanh toán</span></td>
+          <td>
+            <a class="btn btn-sm btn-outline-info" href="#"><i class="fa-solid fa-eye"></i> Xem</a>
+            <a class="btn btn-sm btn-success" href="{{ url_for('thanhtoan') }}"><i class="fa-solid fa-credit-card"></i> Thanh toán</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="vi">
   <head>
