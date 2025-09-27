@@ -9,24 +9,20 @@
 
 <div class="card mb-3">
   <div class="card-body">
-    <form class="form-inline">
+    <form class="form-inline" action="{{ url_for('admin_search_donhang') }}" method="GET">
       <div class="form-group mr-2 mb-2">
-        <input type="text" class="form-control" placeholder="Mã đơn / Khách hàng...">
+        <input type="text" name="q" class="form-control" placeholder="Mã đơn / Khách hàng..." value="{{ search_term or '' }}">
       </div>
       <div class="form-group mr-2 mb-2">
-        <select class="form-control">
-          <option value="">Tất cả trạng thái</option>
-          <option>Chờ thanh toán</option>
-          <option>Đang xử lý</option>
-          <option>Đang giao</option>
-          <option>Hoàn tất</option>
-          <option>Đã hủy</option>
+        <select name="type" class="form-control">
+          <option value="all" {% if search_type == 'all' %}selected{% endif %}>Tất cả</option>
+          <option value="code" {% if search_type == 'code' %}selected{% endif %}>Mã đơn hàng</option>
+          <option value="customer" {% if search_type == 'customer' %}selected{% endif %}>Tên khách hàng</option>
+          <option value="status" {% if search_type == 'status' %}selected{% endif %}>Trạng thái</option>
         </select>
       </div>
-      <div class="form-group mr-2 mb-2">
-        <input type="date" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-outline-secondary mb-2"><i class="fa-solid fa-filter"></i> Lọc</button>
+      <button type="submit" class="btn btn-primary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+      <a href="{{ url_for('admin_donhang') }}" class="btn btn-outline-secondary mb-2 ml-2"><i class="fa-solid fa-refresh"></i> Xem tất cả</a>
     </form>
   </div>
 </div>
@@ -46,45 +42,50 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>#DH001</td>
-          <td>Nguyễn An</td>
-          <td>3</td>
-          <td>2.350.000₫</td>
-          <td><span class="badge badge-success">Hoàn tất</span></td>
-          <td>23/09/2025</td>
-          <td>
-            <button class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></button>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
-        <tr>
-          <td>#DH002</td>
-          <td>Trần Bình</td>
-          <td>1</td>
-          <td>1.200.000₫</td>
-          <td><span class="badge badge-warning">Đang xử lý</span></td>
-          <td>23/09/2025</td>
-          <td>
-            <button class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></button>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
-        <tr>
-          <td>#DH003</td>
-          <td>Lê Chi</td>
-          <td>2</td>
-          <td>750.000₫</td>
-          <td><span class="badge badge-secondary">Chờ thanh toán</span></td>
-          <td>22/09/2025</td>
-          <td>
-            <button class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></button>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
+        {% if orders %}
+          {% for order in orders %}
+          <tr>
+            <td>{{ order.code }}</td>
+            <td>
+              {{ order.customer.full_name }}<br>
+              <small class="text-muted">{{ order.customer.email }}</small>
+            </td>
+            <td>{{ order.items|length }}</td>
+            <td>{{ "{:,.0f}".format(order.total) }}₫</td>
+            <td>
+              {% if order.status == 'Hoàn tất' %}
+                <span class="badge badge-success">{{ order.status }}</span>
+              {% elif order.status == 'Đang xử lý' %}
+                <span class="badge badge-warning">{{ order.status }}</span>
+              {% elif order.status == 'Chờ thanh toán' %}
+                <span class="badge badge-secondary">{{ order.status }}</span>
+              {% elif order.status == 'Đang giao' %}
+                <span class="badge badge-info">{{ order.status }}</span>
+              {% elif order.status == 'Đã hủy' %}
+                <span class="badge badge-danger">{{ order.status }}</span>
+              {% else %}
+                <span class="badge badge-secondary">{{ order.status }}</span>
+              {% endif %}
+            </td>
+            <td>{{ order.created_at }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-info" title="Xem chi tiết"><i class="fa-solid fa-eye"></i></button>
+              <button class="btn btn-sm btn-outline-primary" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-sm btn-outline-danger" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="7" class="text-center text-muted">
+              {% if search_term %}
+                Không tìm thấy đơn hàng nào với từ khóa "{{ search_term }}"
+              {% else %}
+                Chưa có đơn hàng nào
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
       </tbody>
     </table>
   </div>

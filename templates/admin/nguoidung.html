@@ -10,27 +10,57 @@
 
 <div class="card mb-3">
   <div class="card-body">
-    <form class="form-inline">
-      <div class="form-group mr-2 mb-2">
-        <input type="text" class="form-control" placeholder="Tên / Email...">
+    <!-- Tab navigation -->
+    <ul class="nav nav-tabs mb-3" id="userTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Người dùng hệ thống</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="customers-tab" data-toggle="tab" href="#customers" role="tab" aria-controls="customers" aria-selected="false">Khách hàng</a>
+      </li>
+    </ul>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="userTabsContent">
+      <!-- Users tab -->
+      <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+        <form class="form-inline" action="{{ url_for('admin_search_nguoidung') }}" method="GET">
+          <div class="form-group mr-2 mb-2">
+            <input type="text" name="q" class="form-control" placeholder="Tên / Email / Username..." value="{{ search_term or '' }}">
+          </div>
+          <div class="form-group mr-2 mb-2">
+            <select name="type" class="form-control">
+              <option value="all" {% if search_type == 'all' %}selected{% endif %}>Tất cả</option>
+              <option value="username" {% if search_type == 'username' %}selected{% endif %}>Username</option>
+              <option value="email" {% if search_type == 'email' %}selected{% endif %}>Email</option>
+              <option value="name" {% if search_type == 'name' %}selected{% endif %}>Tên</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+          <a href="{{ url_for('admin_nguoidung') }}" class="btn btn-outline-secondary mb-2 ml-2"><i class="fa-solid fa-refresh"></i> Xem tất cả</a>
+        </form>
       </div>
-      <div class="form-group mr-2 mb-2">
-        <select class="form-control">
-          <option value="">Tất cả quyền</option>
-          <option>Admin</option>
-          <option>Nhân viên</option>
-          <option>Khách</option>
-        </select>
+
+      <!-- Customers tab -->
+      <div class="tab-pane fade" id="customers" role="tabpanel" aria-labelledby="customers-tab">
+        <form class="form-inline" action="{{ url_for('admin_search_khachhang') }}" method="GET">
+          <div class="form-group mr-2 mb-2">
+            <input type="text" name="q" class="form-control" placeholder="Tên / Email / SĐT / Địa chỉ..." value="{{ search_term or '' }}">
+          </div>
+          <div class="form-group mr-2 mb-2">
+            <select name="type" class="form-control">
+              <option value="all" {% if search_type == 'all' %}selected{% endif %}>Tất cả</option>
+              <option value="name" {% if search_type == 'name' %}selected{% endif %}>Tên</option>
+              <option value="email" {% if search_type == 'email' %}selected{% endif %}>Email</option>
+              <option value="phone" {% if search_type == 'phone' %}selected{% endif %}>Số điện thoại</option>
+              <option value="address" {% if search_type == 'address' %}selected{% endif %}>Địa chỉ</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+          <a href="{{ url_for('admin_nguoidung') }}" class="btn btn-outline-secondary mb-2 ml-2"><i class="fa-solid fa-refresh"></i> Xem tất cả</a>
+        </form>
       </div>
-      <div class="form-group mr-2 mb-2">
-        <select class="form-control">
-          <option value="">Tất cả trạng thái</option>
-          <option>Hoạt động</option>
-          <option>Bị khóa</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-outline-secondary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Tìm</button>
-    </form>
+    </div>
   </div>
 </div>
 
@@ -39,51 +69,93 @@
     <table class="table table-hover mb-0">
       <thead class="thead-light">
         <tr>
-          <th>ID</th>
-          <th>Tên</th>
-          <th>Email</th>
-          <th>Quyền</th>
-          <th>Trạng thái</th>
-          <th style="width:140px">Hành động</th>
+          {% if is_customer_search %}
+            <th>ID</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Số đơn hàng</th>
+            <th>Tổng chi tiêu</th>
+            <th style="width:140px">Hành động</th>
+          {% else %}
+            <th>ID</th>
+            <th>Username</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Loại tài khoản</th>
+            <th>Trạng thái</th>
+            <th style="width:140px">Hành động</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Nguyễn Admin</td>
-          <td>admin@example.com</td>
-          <td><span class="badge badge-danger">Admin</span></td>
-          <td><span class="badge badge-success">Hoạt động</span></td>
-          <td>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-lock"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Trần Nhân viên</td>
-          <td>staff@example.com</td>
-          <td><span class="badge badge-info">Nhân viên</span></td>
-          <td><span class="badge badge-success">Hoạt động</span></td>
-          <td>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-lock"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Lê Khách</td>
-          <td>guest@example.com</td>
-          <td><span class="badge badge-secondary">Khách</span></td>
-          <td><span class="badge badge-warning">Bị khóa</span></td>
-          <td>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-success"><i class="fa-solid fa-unlock"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
+        {% if is_customer_search %}
+          <!-- Customer data -->
+          {% if customers %}
+            {% for customer_key, customer in customers %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ customer.full_name }}</td>
+              <td>{{ customer.email }}</td>
+              <td>{{ customer.phone }}</td>
+              <td>{{ customer.address }}</td>
+              <td><span class="badge badge-info">{{ customer.total_orders }}</span></td>
+              <td>{{ "{:,.0f}".format(customer.total_spent) }}₫</td>
+              <td>
+                <button class="btn btn-sm btn-outline-info" title="Xem chi tiết"><i class="fa-solid fa-eye"></i></button>
+                <button class="btn btn-sm btn-outline-primary" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn btn-sm btn-outline-danger" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="8" class="text-center text-muted">
+                {% if search_term %}
+                  Không tìm thấy khách hàng nào với từ khóa "{{ search_term }}"
+                {% else %}
+                  Chưa có khách hàng nào
+                {% endif %}
+              </td>
+            </tr>
+          {% endif %}
+        {% else %}
+          <!-- User data -->
+          {% if users %}
+            {% for username, user in users %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ username }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                {% if username == 'admin' %}
+                  <span class="badge badge-danger">Admin</span>
+                {% else %}
+                  <span class="badge badge-secondary">Khách hàng</span>
+                {% endif %}
+              </td>
+              <td><span class="badge badge-success">Hoạt động</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn btn-sm btn-outline-warning" title="Khóa tài khoản"><i class="fa-solid fa-lock"></i></button>
+                <button class="btn btn-sm btn-outline-danger" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="7" class="text-center text-muted">
+                {% if search_term %}
+                  Không tìm thấy người dùng nào với từ khóa "{{ search_term }}"
+                {% else %}
+                  Chưa có người dùng nào
+                {% endif %}
+              </td>
+            </tr>
+          {% endif %}
+        {% endif %}
       </tbody>
     </table>
   </div>

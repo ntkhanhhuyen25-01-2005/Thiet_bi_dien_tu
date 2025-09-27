@@ -12,19 +12,19 @@
 
 <div class="card mb-3">
   <div class="card-body">
-    <form class="form-inline">
+    <form class="form-inline" action="{{ url_for('admin_search_sanpham') }}" method="GET">
       <div class="form-group mr-2 mb-2">
-        <input type="text" class="form-control" placeholder="Tìm theo tên...">
+        <input type="text" name="q" class="form-control" placeholder="Tìm theo tên..." value="{{ search_term or '' }}">
       </div>
       <div class="form-group mr-2 mb-2">
-        <select class="form-control">
-          <option value="">Tất cả danh mục</option>
-          <option>Âm thanh</option>
-          <option>Phụ kiện</option>
-          <option>Lưu trữ</option>
+        <select name="type" class="form-control">
+          <option value="all" {% if search_type == 'all' %}selected{% endif %}>Tất cả</option>
+          <option value="name" {% if search_type == 'name' %}selected{% endif %}>Tên sản phẩm</option>
+          <option value="category" {% if search_type == 'category' %}selected{% endif %}>Danh mục</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-outline-secondary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Tìm</button>
+      <button type="submit" class="btn btn-primary mb-2"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+      <a href="{{ url_for('admin_sanpham') }}" class="btn btn-outline-secondary mb-2 ml-2"><i class="fa-solid fa-refresh"></i> Xem tất cả</a>
     </form>
   </div>
 </div>
@@ -45,48 +45,47 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>101</td>
-          <td><img src="https://via.placeholder.com/40" class="rounded" alt="img"></td>
-          <td>Tai nghe Bluetooth X1</td>
-          <td>Âm thanh</td>
-          <td>650.000₫</td>
-          <td>24</td>
-          <td><span class="badge badge-success">Bán</span></td>
-          <td>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-box-archive"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
-        <tr>
-          <td>102</td>
-          <td><img src="https://via.placeholder.com/40" class="rounded" alt="img"></td>
-          <td>Bàn phím cơ Pro</td>
-          <td>Phụ kiện</td>
-          <td>1.250.000₫</td>
-          <td>12</td>
-          <td><span class="badge badge-warning">Hết dần</span></td>
-          <td>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-box-archive"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
-        <tr>
-          <td>103</td>
-          <td><img src="https://via.placeholder.com/40" class="rounded" alt="img"></td>
-          <td>Ổ cứng SSD 1TB</td>
-          <td>Lưu trữ</td>
-          <td>1.990.000₫</td>
-          <td>0</td>
-          <td><span class="badge badge-secondary">Hết hàng</span></td>
-          <td>
-            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-box-archive"></i></button>
-            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-          </td>
-        </tr>
+        {% if products %}
+          {% for product in products %}
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>
+              <img src="{{ product.image }}" class="rounded" alt="img" style="width: 40px; height: 40px; object-fit: cover;">
+            </td>
+            <td class="fw-bold">{{ product.name }}</td>
+            <td><span class="badge badge-info">{{ product.category }}</span></td>
+            <td class="text-success fw-bold">{{ "{:,.0f}".format(product.price) }}₫</td>
+            <td>
+              {% set stock = 25 %}
+              {% if stock > 20 %}
+                <span class="badge badge-success">{{ stock }}</span>
+              {% elif stock > 10 %}
+                <span class="badge badge-warning">{{ stock }}</span>
+              {% else %}
+                <span class="badge badge-danger">{{ stock }}</span>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge badge-success">Bán</span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-sm btn-outline-warning" title="Quản lý kho"><i class="fa-solid fa-box-archive"></i></button>
+              <button class="btn btn-sm btn-outline-danger" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="8" class="text-center text-muted">
+              {% if search_term %}
+                Không tìm thấy sản phẩm nào với từ khóa "{{ search_term }}"
+              {% else %}
+                Chưa có sản phẩm nào
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
       </tbody>
     </table>
   </div>
